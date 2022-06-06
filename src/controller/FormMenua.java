@@ -4,6 +4,8 @@
  */
 package controller;
 
+
+import dao.MenuADAO;
 import dao.UsuarioDAO;
 import dao.conexao;
 import java.sql.Connection;
@@ -11,37 +13,38 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.Usuario;
+import model.Menua;
 import view.CadastroView;
-
+import view.MenuAView;
 /**
  *
  * @author nicks
  */
-public class FormCadastro {
+public class FormMenua {
     
-    private CadastroView view;
+     private MenuAView view;
 
-    public FormCadastro(CadastroView view) {
+    public FormMenua(MenuAView view) {
         this.view = view;
     }
     
-    public void cadastrarUs(){
+    public void comentar(){
         
         
         
-        String matricula = view.getjTextFieldmatricula().getText();
-        String usuarioo = view.getjTextFieldusuario().getText();
-        String senha = view.getjPasswordFieldsenha().getText();
+        String nomea = view.getjTextFieldnomea().getText();
+        String cadeira = view.getjTextFieldcadeira().getText();
+        String nota = view.getjTextFieldnota().getText();
+        String comentar = view.getjTextAreacomentar().getText();
         
         
-      Usuario usuario = new Usuario(matricula,usuarioo,senha);
+      Menua aluno = new Menua(nomea, cadeira, nota, comentar);
         try {
             Connection conexaoo = new conexao().getConnection();
-            UsuarioDAO usuariodao = new UsuarioDAO(conexaoo);
-            usuariodao.insert(usuario);
+            MenuADAO menudao = new MenuADAO(conexaoo);
+            menudao.comentar(aluno);
             
-            JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Comentario publicado!");
         
         } catch (SQLException ex) {
             Logger.getLogger(CadastroView.class.getName()).log(Level.SEVERE, null, ex);

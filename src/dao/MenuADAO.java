@@ -5,45 +5,36 @@
 package dao;
 
 import java.sql.Connection;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Menua;
 import model.Usuario;
 import view.CadastroView;
 /**
  *
  * @author nicks
  */
-public class UsuarioPDAO {
+public class MenuADAO {
     
      private final Connection connection;
 
-    public UsuarioPDAO(Connection connection) {
+    public MenuADAO(Connection connection) {
         this.connection = connection;
     }
-   
-   public void insert(Usuario usuario) throws SQLException{
+    
+     public void comentar(Menua usuario) throws SQLException{
        
          
-            String sql = "insert into usuariop (matricula, usuario, senha) values ('"+usuario.getMatricula()+"','"+usuario.getUsuario()+"','"+usuario.getSenha()+"');";
+            String sql = "insert into menua (nomep, cadeira, comentar, nota) values ('"+usuario.getNomea()+"','"+usuario.getCadeira()+"','"+usuario.getComentar()+"', '"+usuario.getNota()+"');";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.execute();
             
       
        
    }
-   
-   public boolean ExisteUsuario(Usuario usuario) throws SQLException {
-        String sql = "select * from usuariop where matricula = '"+usuario.getMatricula()+"' and senha = '"+usuario.getSenha()+"'";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.execute();
-        
-        ResultSet resultSet = statement.getResultSet();
-        
-        return resultSet.next();
-           
-    }
-    
 }
